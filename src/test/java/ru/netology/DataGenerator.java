@@ -46,7 +46,7 @@ public class DataGenerator {
 
     public static String generateNameWithInvalidSymbol(String locale) {
         Faker faker = new Faker(new Locale(locale));
-        String name = faker.name().fullName().concat("@");
+        String name = faker.name().fullName().concat("$");
         return name;
     }
 
