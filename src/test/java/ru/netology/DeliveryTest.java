@@ -77,8 +77,7 @@ public class DeliveryTest {
         $(cssSelector("[data-test-id=date] .input__control")).doubleClick().sendKeys(DELETE, date);
         $$("button").find(Condition.exactText("Запланировать")).click();
         $$(".button__text").find(exactText("Перепланировать")).click();
-        $("[data-test-id=success-notification]").waitUntil(Condition.visible,
-                1500).shouldHave(exactText("Успешно! Встреча успешно запланирована на " + date));
+        $(withText("Перепланирование на указанную дату не возможно")).shouldHave(Condition.visible);
     }
 
     @Test
@@ -126,7 +125,7 @@ public class DeliveryTest {
         $(cssSelector("[data-test-id=phone] .input__control")).setValue(invalidUser.getPhone());
         $("[data-test-id=agreement] .checkbox__box").click();
         $$("button").find(Condition.exactText("Запланировать")).click();
-        $(withText("Имя и Фамилия указаные неверно")).shouldHave(Condition.visible);
+        $(withText("Имя и Фамилия указаны неверно")).shouldHave(Condition.visible);
     }
 
     @Test
@@ -149,7 +148,8 @@ public class DeliveryTest {
         $(cssSelector("[data-test-id=phone] .input__control")).setValue(invalidUser.getPhone());
         $("[data-test-id=agreement] .checkbox__box").click();
         $$("button").find(Condition.exactText("Запланировать")).click();
-        $(withText("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы")).shouldHave(Condition.visible);
+        $(".notification__content").waitUntil(Condition.visible,
+                1500).shouldHave(exactText("Встреча успешно запланирована на " + date));
     }
 
     @Test
@@ -161,7 +161,7 @@ public class DeliveryTest {
         $(cssSelector("[data-test-id=phone] .input__control")).setValue(invalidUser.getPhone());
         $("[data-test-id=agreement] .checkbox__box").click();
         $$("button").find(Condition.exactText("Запланировать")).click();
-        $(withText("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы")).shouldHave(Condition.visible);
+        $(withText("Имя и Фамилия указаны неверно. Допустимы только русские буквы, пробелы и дефисы")).shouldHave(Condition.visible);
     }
 
     @Test
@@ -173,8 +173,7 @@ public class DeliveryTest {
         $(cssSelector("[data-test-id=phone] .input__control")).setValue(invalidUser.getPhone());
         $("[data-test-id=agreement] .checkbox__box").click();
         $$("button").find(Condition.exactText("Запланировать")).click();
-        $(".notification__content").waitUntil(Condition.visible,
-                1500).shouldHave(exactText("Встреча успешно запланирована на " + date));
+        $(withText("Номер телефона должен начинаться с +7")).shouldHave(Condition.visible);
     }
 
     @Test
@@ -186,8 +185,7 @@ public class DeliveryTest {
         $(cssSelector("[data-test-id=phone] .input__control")).setValue(invalidUser.getPhone());
         $("[data-test-id=agreement] .checkbox__box").click();
         $$("button").find(Condition.exactText("Запланировать")).click();
-        $(".notification__content").waitUntil(Condition.visible,
-                1500).shouldHave(exactText("Встреча успешно запланирована на " + date));
+        $(withText("Поле должно содержать 11 цифр")).shouldHave(Condition.visible);
     }
 
     @Test
